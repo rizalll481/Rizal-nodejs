@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Calculator</title>
+  <style>
+    /* Modern styling with cool colors and layout */
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 30px 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      width: 320px;
+      text-align: center;
+    }
+    h1 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+    input[type="number"], select {
+      width: 80px;
+      font-size: 1.2rem;
+      padding: 10px;
+      margin: 10px 5px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+      text-align: center;
+      color: #333;
+    }
+    input[type="number"]:focus, select:focus {
+      box-shadow: 0 0 10px #88aaff;
+    }
+    button {
+      margin-top: 15px;
+      background: #88aaff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(136,170,255,0.6);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background: #5577cc;
+      box-shadow: 0 8px 20px rgba(85,119,204,0.8);
+    }
+    .result {
+      margin-top: 25px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      min-height: 28px;
+      color: #ffdd57;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Simple Calculator</h1>
+    <div>
+      <input id="num1" type="number" placeholder="Number 1" />
+      <select id="operator" aria-label="Select Operator">
+        <option value="+">+</option>
+        <option value="-">−</option>
+        <option value="*">×</option>
+        <option value="/">÷</option>
+      </select>
+      <input id="num2" type="number" placeholder="Number 2" />
+    </div>
+    <button id="calculateBtn">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const num1Input = document.getElementById('num1');
+    const num2Input = document.getElementById('num2');
+    const operatorSelect = document.getElementById('operator');
+    const resultDiv = document.getElementById('result');
+    const calculateBtn = document.getElementById('calculateBtn');
+
+    calculateBtn.addEventListener('click', () => {
+      const num1 = parseFloat(num1Input.value);
+      const num2 = parseFloat(num2Input.value);
+      const operator = operatorSelect.value;
+
+      if (isNaN(num1) || isNaN(num2)) {
+        resultDiv.textContent = 'Please enter valid numbers.';
+        return;
+      }
+
+      let result;
+
+      switch (operator) {
+        case '+':
+          result = num1 + num2;
+          break;
+        case '-':
+          result = num1 - num2;
+          break;
+        case '*':
+          result = num1 * num2;
+          break;
+        case '/':
+          if (num2 === 0) {
+            resultDiv.textContent = 'Error: Division by zero!';
+            return;
+          }
+          result = num1 / num2;
+          break;
+        default:
+          resultDiv.textContent = 'Invalid operator selected.';
+          return;
+      }
+
+      // Show result with max 8 decimal places if needed
+      resultDiv.textContent = `Result: ${+result.toFixed(8)}`;
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Greeting by Age</title>
+  <style>
+    /* Modern centered styling */
+    body {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      color: #f0f0f0;
+      user-select: none;
+    }
+    .container {
+      background: rgba(0,0,0,0.3);
+      border-radius: 20px;
+      padding: 40px 50px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+      text-align: center;
+      max-width: 400px;
+    }
+    h1 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 1.5px;
+      font-size: 2rem;
+      color: #f8f8f8;
+    }
+    p.message {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-top: 15px;
+      color: #a9d1ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="greeting">Hello!</h1>
+    <p id="message" class="message"></p>
+  </div>
+
+  <script>
+    function promptForName() {
+      let name = prompt("Please enter your name:");
+      while (!name || !name.trim()) {
+        name = prompt("Name cannot be empty. Please enter your name:");
+      }
+      return name.trim();
+    }
+
+    function promptForAge() {
+      let age = prompt("Please enter your age:");
+      while (true) {
+        if (age === null) {
+          age = prompt("Please enter your age to continue:");
+          continue;
+        }
+        age = age.trim();
+        if (!age || isNaN(age) || Number(age) < 0) {
+          age = prompt("Invalid age. Please enter a valid non-negative number for your age:");
+          continue;
+        }
+        return Number(age);
+      }
+    }
+
+    function getMessageByAge(age) {
+      if (age < 13) {
+        return "You're a young and curious child! Enjoy every moment.";
+      } else if (age < 20) {
+        return "Teenage years are full of energy and discovery!";
+      } else if (age < 65) {
+        return "Adulthood is a great time for growth and achievements.";
+      } else {
+        return "Enjoy the wisdom and relaxation of your senior years.";
+      }
+    }
+
+    const userName = promptForName();
+    const userAge = promptForAge();
+
+    const greetingElem = document.getElementById("greeting");
+    const messageElem = document.getElementById("message");
+
+    greetingElem.textContent = `Hello, ${userName}!`;
+    messageElem.textContent = getMessageByAge(userAge);
+  </script>
+</body>
+</html>
+
